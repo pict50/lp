@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO with Ajax</title>
+    <style>
+
+    </style>
+</head>
+<body>
+    <div class="todo-conatiner">
+        <h2>ToDo List</h2>
+        <input type="text" id="taskInput" placeholder="Add new task">
+        <button onclick="addTask()">Add</button>
+        <ul id="taskList"></ul>
+    </div>
+
+    <script>
+        let tasks = JSON.parse(localStorage.getItem('tasks'))||[];
+    
+        function renderTasks(){
+            const list = document.getElementById('taskList');
+            list.innerHTML = '';
+            tasks.forEach((task,index)=>{
+                const li = document.createElement('li');
+                li.className = task.done ? 'done':'';
+                li.innerHTML=`
+                <input type="checkbox" ${task.done ? 'checked' : ''} onchange="toggleDone(${index})"/>
+                <span>${task.text}</span>
+                <div class="actions">
+                    <button onclick="editTask(${index})">Edit</button>
+                    <button onclick="deleteTask(${index})">Delete</button>
+                </div>
+                `;
+                list.appendChild(li);
+            });
+        }
+
+        function addTask(){
+            const text = document.getElementById('taskInput').value.trim();
+            if(text) {
+                tasks.push({text, done:false});
+                saveTasks();
+            }
+        }
+
+        function deleteTask(index){
+            tasks.splice(index, 1);
+            saveTasks();
+        }
+
+        function editTask(index){
+            const newText = prompt("Update task:", tasks[index].text);
+            if(newText?.trim()){
+                tasks[index].text = newText.trim();
+                saveTasks();
+            }
+        }
+
+        function toggleDone(index) {
+        tasks[index].done = !tasks[index].done;
+        saveTasks();
+        }
+
+        function saveTasks() {
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+        renderTasks();
+        document.getElementById('taskInput').value = '';
+        }
+
+        renderTasks();
+    </script>
+</body>
+</html>

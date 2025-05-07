@@ -1,0 +1,7 @@
+[
+    {"name":"Pranav", "designation":"SDE", "department":"IT", "salary":"100000", "image":"image1.png"},
+    {"name":"Harshad", "designation":"SDE1", "department":"IT", "salary":"200000","image":"image1.png"},
+    {"name":"Veera", "designation":"SDE2", "department":"IT", "salary":"300000","image":"image1.png"},
+    {"name":"Vaibhav", "designation":"SDE3", "department":"IT", "salary":"400000","image":""}
+
+] 

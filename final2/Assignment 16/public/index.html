@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Menu</title>
+    <style>
+        body {
+          font-family: 'Segoe UI', sans-serif;
+          background-color: #fdf6e3;
+          margin: 0;
+          padding: 20px;
+        }
+    
+        h2 {
+          text-align: center;
+          color: #b22222;
+          font-size: 32px;
+        }
+    
+        table {
+          width: 80%;
+          margin: auto;
+          border-collapse: collapse;
+          background-color: #fff8dc;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    
+        th, td {
+          padding: 12px 15px;
+          border: 1px solid #deb887;
+          text-align: center;
+        }
+    
+        th {
+          background-color: #ffa07a;
+          color: white;
+        }
+    
+        img {
+          width: 100px;
+          height: auto;
+          border-radius: 8px;
+        }
+      </style>
+</head>
+
+<body>
+    <h2>Pranav's Restaurant</h2>
+    <table border="1" cellpadding="10">
+        <thead>
+            <tr>
+                <th>Dish Name</th>
+                <th>Price</th>
+                <th>Image</th>
+            </tr>
+        </thead>
+        <tbody id="userTable"></tbody>
+    </table>    
+
+    <script>
+        fetch('/api/users')
+        .then(response=>response.json())
+        .then(users=>{
+            const table = document.getElementById("userTable");
+
+            users.forEach(user=>{
+                const row = document.createElement("tr")
+                row.innerHTML=`
+                <td> ${user.dish}</td>
+                <td>${user.price}</td>
+                <td><img src="${user.image}" alt="${user.dish}"></td>
+                `;
+                table.appendChild(row);
+            })
+            .catch(error =>{
+                console.log("Error fetching the data", err)
+            });
+        })
+    </script>
+</body>
+</html>

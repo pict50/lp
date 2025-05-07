@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Employee Directory</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    table {
+      width: 90%;
+      margin: auto;
+      background-color: white;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+
+    th {
+      background-color: #007BFF;
+      color: white;
+    }
+
+    img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>Employee Directory</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Designation</th>
+        <th>Department</th>
+        <th>Salary</th>
+        <th>Profile Image</th>
+      </tr>
+    </thead>
+    <tbody id="userTable"></tbody>
+  </table>
+
+  <script>
+    fetch('/api/users')
+      .then(res => res.json())
+      .then(users => {
+        const table = document.getElementById("userTable");
+        users.forEach(user => {
+          const row = document.createElement("tr");
+          const profileImg = user.image || "https://via.placeholder.com/80";
+          row.innerHTML = `
+            <td>${user.name}</td>
+            <td>${user.designation}</td>
+            <td>${user.department}</td>
+            <td>$${user.salary}</td>
+            <td><img src="${user.image}" alt="${user.name}"/></td>
+          `;
+          table.appendChild(row);
+        });
+      })
+      .catch(err => {
+        console.error("Error fetching users:", err);
+      });
+  </script>
+</body>
+</html>

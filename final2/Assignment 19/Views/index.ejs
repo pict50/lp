@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+</head>
+<body>
+    <h1>Total Students <%= count %> </h1>
+
+    <table border="1" cellpadding="10">
+        <tr>
+            <th>Name</th>
+            <th>Roll No</th>
+            <th>WAD</th>
+            <th>DSBDA</th>
+            <th>CNS</th>
+            <th>CC</th>
+            <th>AI</th>
+            <th>Action</th>
+        </tr>
+
+        <% student.forEach(student => { %>
+            <tr>
+                <td><%= student.Name %></td>
+                <td><%= student.Roll_No %></td>
+                <td><%= student.WAD %></td>
+                <td><%= student.DSBDA %></td>
+                <td><%= student.CNS %></td>
+                <td><%= student.CC %></td>
+                <td><%= student.AI %></td>   
+                <td>
+                    <form action="/delete/<%= student.Name %>" method="post" style="display:inline">
+                        <button type="submit" onclick="return confirm('Delete <%= student.Name %>')">Delete</button>
+                    </form>
+                </td>
+            </tr>
+       <% }) %>
+    </table>
+    
+<!-- Add new Student -->
+<h2>Add New Student</h2>
+<form action="/add" method="POST">
+  <input type="text" name="Name" placeholder="Name" required />
+  <input type="number" name="Roll_No" placeholder="Roll Number" required />
+  <input type="number" name="WAD" placeholder="WAD Marks" required />
+  <input type="number" name="CC" placeholder="CC Marks" required />
+  <input type="number" name="DSBDA" placeholder="DSBDA Marks" required />
+  <input type="number" name="CNS" placeholder="CNS Marks" required />
+  <input type="number" name="AI" placeholder="AI Marks" required />
+  <button type="submit">Add Student</button>
+</form>
+   
+<!-- Update 10 marks of student -->
+ <h2>Update 10 marks of student</h2>
+<form action="/update" method="POST">
+    <input type="Name" name="Name" placeholder="Name" required>
+    <button type="submit">Update</button>
+</form>
+
+<!--list of all greater than 25  -->
+<h2>Greater than 25 marks in All Subjects</h2>
+<form action="/allgreater" method="GET">
+    <button type="submit">Show Students</button>
+</form>
+
+<!-- Students with wad and dsbda less than 23 -->
+ <h2>Student with wad and dsbda Less than 23 marks</h2>
+ <form action="/allless" method="GET">
+    <button type="submit"> Show all Students</button>
+ </form>
+</body>
+</html>
